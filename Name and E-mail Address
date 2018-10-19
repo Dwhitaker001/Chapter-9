@@ -1,0 +1,80 @@
+# Write a program that keeps names and email addresses in a dictionary as key-value pairs. The program should
+# display a menu that lets the user look up a person's email address, add a new name and email address, change
+# an existing email address, and delete an existing name and email address. The program should pickle the
+# dictionary and save it to a file when the user exits the program. Each time the program starts, it should
+# retrieve the dictionary from the file and unpickle it.
+import pickle
+
+LOOK_UP = 1
+ADD = 2
+CHANGE = 3
+DELETE = 4
+QUIT = 5
+
+
+def main():
+    names_addresses = {}
+    choice = 0
+
+    while choice != QUIT:
+        choice = get_menu_choice()
+        if choice == LOOK_UP:
+            look_up(names_addresses)
+        elif choice == ADD:
+            add(names_addresses)
+        elif choice == CHANGE:
+            change(names_addresses)
+        elif choice == DELETE:
+            delete(names_addresses)
+
+
+def get_menu_choice():
+    print()
+    print('Names and their e-mail addresses')
+    print('--------------------------------')
+    print('1. Look up a e-mail')
+    print('2. Add a new e-mail')
+    print('3. Change a e-mail')
+    print('4. Delete a e-mail')
+    print('5. Quit the program')
+    print()
+    choice = int(input('Enter your choice: '))
+
+    while choice < LOOK_UP or choice > QUIT:
+        choice = int(input('Enter a valid choice: '))
+
+    return choice
+
+
+def look_up(names_addresses):
+    name = input('Enter a name: ')
+    print(names_addresses.get(name, 'Not found.'))
+
+
+def add(names_addresses):
+    name = input('Enter a name: ')
+    email = input('Enter a e-mail address: ')
+    if name not in names_addresses:
+        names_addresses[name] = email
+    else:
+        print('That entry already exists.')
+
+
+def change(names_addresses):
+    name = input('Enter a name: ')
+    if name in names_addresses:
+        email = input('Enter the new e-mail address: ')
+        names_addresses[name] = email
+    else:
+        print('That name is not found.')
+
+
+def delete(names_addresses):
+    name = input('Enter a name: ')
+    if name in names_addresses:
+        del names_addresses[name]
+    else:
+        print('That name is not found.')
+
+
+main()
