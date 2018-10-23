@@ -5,9 +5,13 @@
     Your file should compile error free
     Submit your completed file
 """
+import pickle
 # TODO 9.1 Dictionaries
 # Finish creating the following dictionary by adding three more people and birthdays
-birthdays = {'Meri': 'May 16', 'Kathy': 'July 14', 'D.J.': 'March 16', 'Kyle': 'August 17', 'Eric': 'April 12'}
+birthdays = {'Meri': 'May 16', 'Kathy': 'July 14'}
+birthdays['D.J.'] = 'Mar 16'
+birthdays['Kyle'] = 'Aug 17'
+birthdays['Eric'] = 'April 12'
 
 # 1.Print Meri's Birthday
 print(birthdays['Meri'])
@@ -20,42 +24,76 @@ if len(definitions) == 0:
 miles_ridden = {'June 1': 25, 'June 2': 20, 'June 3': 38, 'June 4': 12, 'June 5': 30, 'June 7': 25}
 
 # print the keys and the values of miles_ridden using a for loop
-
+print("\nPrinting keys and values using a for loop")
+for mile in miles_ridden:
+    print(mile, ":", miles_ridden[mile])
 # get the value for June 3 and print it, if not found display 'Entry not found', replace the ""
 
-value = ""
-print(value)
+print("\nLooking for values in miles_ridden")
+value = "June 3"
+if value in miles_ridden:
+    print(value)
+else:
+    print("Entry not found")
 # get the value for June 6 and print it, if not found display 'Entry not found' replace the ""
-value2 = ""
-print(value2)
+value2 = "June 6"
+if value2 in miles_ridden:
+    print(value2)
+else:
+    print("Entry not found")
 
 # Use the items method to print the miles_ridden dictionary
-
+print("\nUsing the items() method:")
+for key, value3 in miles_ridden.items():
+    print(key, ":", value3)
+for one_item in miles_ridden.items():
+    print(one_item[0], ":", one_item[1])
 
 # Use the keys method to print all of the keys in miles_ridden
-
+print("\nUsing the keys() method:")
+for key1 in miles_ridden.keys():
+    print(key1, ":", miles_ridden[key1])
 # Use the pop method to remove june 4 then print the contents of the dictionary
-
+print("\nRemoving June 4 with pop()")
+print(miles_ridden.pop('June 4'))
+print(miles_ridden)
 # Use the values method to print the contents of the miles_ridden dictionary
-
+print("\nUsing the values() method:")
+for value4 in miles_ridden.values():
+    for key2 in miles_ridden:
+        if miles_ridden[key2] == value4:
+            print(value4, "has key", key2)
 # TODO 9.2 Sets
 # Create an empty set named my_set
+my_set = set()
 
 # Create a set named days that contains the days of the week
-
+day_of_week = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}
 
 # get the number of elements from the days set and print it
-
+print("days_of_week has", len(day_of_week), "members")
+print(day_of_week)
 # Remove Saturday and Sunday from the days set
-
+day_of_week.discard("Saturday")
+day_of_week.remove("Sunday")
+print(day_of_week)
 # Determine if 'Mon' is in the days set
-
+if 'Mon' in day_of_week:
+    print("Found Mon")
+else:
+    print("'Mon' is not found")
 # TODO 9.3 Serializing Objects (Pickling)
 
 # import the pickle library
-
+print("\npickle library imported at top of file")
 # create the output file log and open it for binary writing
-
+outfile = open("log.dat", 'wb')
 # pickle the miles_ridden dictionary and output it to the log file
-
+pickle.dump(miles_ridden, outfile)
 # close the log file
+outfile.close()
+
+infile = open("log.dat", "rb")
+new_data = pickle.load(infile)
+print(new_data)
+infile.close()
